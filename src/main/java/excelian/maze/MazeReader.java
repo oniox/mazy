@@ -14,22 +14,31 @@ import org.apache.log4j.Logger;
 
 import excelian.maze.Maze.Cell.Type;
 
+/**
+ * Reads Maze data from specified and parses into {@code Maze} instance.  
+ * @author FN
+ */
 public class MazeReader {	
 	
 	private static final String DEFAULT_FILE_PATH = "src/main/resources/maze.txt";
 	private Logger logger = Logger.getLogger(MazeReader.class);
 	
-	public Maze makeDefaultMaze() throws Exception {
+	public Maze makeMaze() throws Exception {
 		List<String> readDefault = readDefault();				
 		return parse(readDefault);
 		
 	}
 	
-	public List<String> readDefault() throws Exception {
+	private List<String> readDefault() throws Exception {
 		return read(new FileReader(DEFAULT_FILE_PATH));
 	}
 	
-	public List<String> read(InputStreamReader inputStreamReader) throws Exception {		
+	public Maze makeMaze(InputStreamReader mazeStream) throws Exception {
+		List<String> readDefault = read(mazeStream);				
+		return parse(readDefault);		
+	}
+	
+	private List<String> read(InputStreamReader inputStreamReader) throws Exception {		
 		List<String> lines = new ArrayList<>();
 		String line = null;
 		try (BufferedReader bufReader = new BufferedReader(inputStreamReader);) {
